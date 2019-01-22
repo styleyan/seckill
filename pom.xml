@@ -141,7 +141,7 @@
       <artifactId>spring-webmvc</artifactId>
       <version>4.1.9.RELEASE</version>
     </dependency>
-    <!-- 4.4 spring test 相关依赖( TODO: 方便 srping 做单元测试依赖 ) -->
+    <!-- 4.4 spring test  相关依赖( TODO: 方便 srping 做单元测试依赖 ) -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
