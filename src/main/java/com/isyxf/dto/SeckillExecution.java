@@ -1,11 +1,14 @@
 package com.isyxf.dto;
 
+import com.isyxf.entity.Seckill;
 import com.isyxf.entity.SuccessKilled;
+
+import java.util.List;
 
 /**
  * 分装秒杀执行后的结果
  */
-public class SeckillExecution {
+public abstract class SeckillExecution {
     // 秒杀id
     private long seckillId;
 
@@ -75,4 +78,12 @@ public class SeckillExecution {
     public void setSuccessKilled(SuccessKilled successKilled) {
         this.successKilled = successKilled;
     }
+
+    public abstract List<Seckill> getSeckillList();
+
+    public abstract Seckill getById(long seckillId);
+
+    public abstract Exposer exposerSeckillUrl(long seckillId);
+
+    public abstract SeckillExecution executionSeckill(long seckillId, long userPhone);
 }
