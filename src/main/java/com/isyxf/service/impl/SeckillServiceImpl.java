@@ -5,6 +5,11 @@ import com.isyxf.dao.SuccessKilledDao;
 import com.isyxf.dto.Exposer;
 import com.isyxf.dto.SeckillExecution;
 import com.isyxf.entity.Seckill;
+import com.isyxf.entity.SuccessKilled;
+import com.isyxf.enums.SeckillStatEnum;
+import com.isyxf.exception.RepeatKillExecption;
+import com.isyxf.exception.SeckillCloseExecption;
+import com.isyxf.exception.SeckillException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.DigestUtils;
@@ -62,7 +67,44 @@ public class SeckillServiceImpl implements SeckillExecution {
     }
 
     @Override
-    public SeckillExecution executionSeckill(long seckillId, long userPhone, String md5) {
-        return null;
+    public SeckillExecution executionSeckill(long seckillId, long userPhone, String md5)
+        throws SeckillException, RepeatKillExecption, SeckillCloseExecption {
+
+        if (md5 == null || md5.equals(getMD5(seckillId))) {
+            throw new SeckillException("seckill data rewrite");
+        }
+        // 执行秒杀逻辑: 减库存 + 记录购买行为
+
+        Date nowTime = new Date();
+
+        try {
+            // 减库存
+            int updateCount = seckillDao.reduceNumber(seckillId, nowTime);
+
+            if (updateCount <= 0) {
+                // 没有更新到记录，秒杀结束
+                throw new SeckillCloseExecption("seckill is closed");
+            } else {
+                // 记录购买行为
+                int insertCount = successKilledDao.insertSuccessKilled(seckillId, userPhone);
+                // 唯一: seckillId, userPhone
+                if (insertCount <= 0) {
+                    // 重复秒杀
+                    throw new RepeatKillExecption("seckill repeated");
+                } else {
+                    // 秒杀成功
+                    SuccessKilled successKilled = successKilledDao.queryByIdWithSeckill(seckillId,userPhone);
+                    return new SeckillException(seckillId, 1, SeckillStatEnum.SUCCESS, successKilled);
+                }
+            }
+        } catch (SeckillCloseExecption e1) {
+            throw e1;
+        } catch (RepeatKillExecption e2) {
+            throw e2;
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            // 索引编译期异常 转化为运行期异常
+            throw new SeckillException("seckill inner error:" + e.getMessage());
+        }
     }
 }

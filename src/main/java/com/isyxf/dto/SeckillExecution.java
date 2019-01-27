@@ -2,6 +2,7 @@ package com.isyxf.dto;
 
 import com.isyxf.entity.Seckill;
 import com.isyxf.entity.SuccessKilled;
+import com.isyxf.enums.SeckillStatEnum;
 
 import java.util.List;
 
@@ -24,27 +25,25 @@ public abstract class SeckillExecution {
     /**
      * 成功状态
      * @param seckillId
-     * @param state
-     * @param stateInfo
+     * @param statEnum
      * @param successKilled
      */
-    public SeckillExecution(long seckillId, int state, String stateInfo, SuccessKilled successKilled) {
+    public SeckillExecution(long seckillId, SeckillStatEnum statEnum, SuccessKilled successKilled) {
         this.seckillId = seckillId;
-        this.state = state;
-        this.stateInfo = stateInfo;
+        this.state = statEnum.getState();
+        this.stateInfo = statEnum.getStateInfo();
         this.successKilled = successKilled;
     }
 
     /**
      * 失败状态
      * @param seckillId
-     * @param state
-     * @param stateInfo
+     * @param statEnum
      */
-    public SeckillExecution(long seckillId, int state, String stateInfo) {
+    public SeckillExecution(long seckillId, SeckillStatEnum statEnum) {
         this.seckillId = seckillId;
-        this.state = state;
-        this.stateInfo = stateInfo;
+        this.state = statEnum.getState();
+        this.stateInfo = statEnum.getStateInfo();
     }
 
     public long getSeckillId() {
@@ -86,4 +85,6 @@ public abstract class SeckillExecution {
     public abstract Exposer exposerSeckillUrl(long seckillId);
 
     public abstract SeckillExecution executionSeckill(long seckillId, long userPhone);
+
+    public abstract SeckillExecution executionSeckill(long seckillId, long userPhone, String md5);
 }
