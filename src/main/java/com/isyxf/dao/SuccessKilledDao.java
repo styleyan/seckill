@@ -1,3 +1,7 @@
+/**
+ * dao层 用于把数据库中的数据映射到对象
+ */
+
 package com.isyxf.dao;
 
 import com.isyxf.entity.SuccessKilled;

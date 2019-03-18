@@ -1,7 +1,14 @@
+/**
+ * entity是用于把数据映射到数据库当中
+ */
 package com.isyxf.entity;
 
 import java.util.Date;
 
+/**
+ * 创建实体类，与数据库表相对应
+ * @author Y . Jer
+ */
 public class Seckill {
 
     private long seckillId;
