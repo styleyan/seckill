@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.isyxf.dao.SuccessKilledDao">
     <insert id="insertSuccessKilled">
-        <!-- 主键冲突，报错 -->
+        <!-- 主键冲突，报错, 通过 ignore 来避免 -->
         insert ignore into success_killed(seckill_id,user_phone,state)
         values (#{seckillId}, #{userPhone},0)
     </insert>

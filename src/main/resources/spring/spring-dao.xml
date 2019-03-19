@@ -10,9 +10,9 @@
     <!-- 1: 配置数据相关参数
         properties的属性: ${url}
     -->
-    <context:property-placeholder location="classpath:jdbc.properties"></context:property-placeholder>
+    <context:property-placeholder location="classpath:jdbc.properties"/>
 
-    <!-- 2:数据库连接池 -->
+    <!-- 2:数据库连接池，TODO: 属性id是用于方便其他配置引用 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <!-- 配置连接池属性 (TODO: 通过 jdbc.properties 文件获取 -->
         <property name="driverClass" value="${driver}"></property>
@@ -34,7 +34,7 @@
 
     <!-- 3: 配置 SQLSessionFactory 对象(TODO: 重点) -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <!-- 注入数据库连接池 -->
+        <!-- 注入数据库连接池(TODO:dataSource 是步骤2定义的 c3p0)-->
         <property name="dataSource" ref="dataSource"/>
         <!-- 配置MyBatis全局配置文件: mybatis-config.xml -->
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
