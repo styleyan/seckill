@@ -6,7 +6,6 @@ import com.isyxf.entity.Seckill;
 import com.isyxf.exception.RepeatKillExecption;
 import com.isyxf.exception.SeckillCloseExecption;
 import com.isyxf.exception.SeckillException;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,14 +13,12 @@ import java.util.List;
  * 业务接口: 站在 "使用者" 角度设计接口
  * 三个方面: 方法定义粒度，参数，返回类型(return 类型/异常)
  */
-public abstract class SeckillService {
+public interface SeckillService {
     /**
      * 查询所有秒杀记录
      * @return
      */
     List<Seckill> getSeckillList();
-
-    public abstract List<Seckill> getSeckillList();
 
     /**
      * 查询单个秒杀记录
@@ -45,13 +42,5 @@ public abstract class SeckillService {
      * @param md5
      */
     SeckillExecution executeSeckill(long seckillId, long userPhone, String md5)
-        throws SeckillException, RepeatKillExecption, SeckillCloseExecption;
-
-    public abstract Seckill getById(long seckillId);
-
-    public abstract Exposer exposerSeckillUrl(long seckillId);
-
-    @Transactional
-    public abstract SeckillExecution executionSeckill(long seckillId, long userPhone, String md5)
         throws SeckillException, RepeatKillExecption, SeckillCloseExecption;
 }

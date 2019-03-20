@@ -7,19 +7,27 @@ import com.isyxf.enums.SeckillStatEnum;
 import java.util.List;
 
 /**
- * 分装秒杀执行后的结果
+ * 封装秒杀执行后的结果
  */
 public abstract class SeckillExecution {
-    // 秒杀id
+    /**
+     * 秒杀id
+     */
     private long seckillId;
 
-    // 秒杀执行结果状态
+    /**
+     * 秒杀执行结果状态
+     */
     private int state;
 
-    // 状态表示
+    /**
+     * 状态表示
+     */
     private String stateInfo;
 
-    // 秒杀成功对象
+    /**
+     * 秒杀成功对象
+     */
     private SuccessKilled successKilled;
 
     /**

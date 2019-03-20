@@ -3,7 +3,7 @@ package com.isyxf.exception;
 /**
  * 秒杀关闭异常
  */
-public class SeckillCloseExecption extends RuntimeException {
+public class SeckillCloseExecption extends SeckillException {
     public SeckillCloseExecption(String message) {
         super(message);
     }
