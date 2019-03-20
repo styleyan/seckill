@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 封装秒杀执行后的结果
  */
-public abstract class SeckillExecution {
+public class SeckillExecution {
     /**
      * 秒杀id
      */
@@ -85,14 +85,4 @@ public abstract class SeckillExecution {
     public void setSuccessKilled(SuccessKilled successKilled) {
         this.successKilled = successKilled;
     }
-
-    public abstract List<Seckill> getSeckillList();
-
-    public abstract Seckill getById(long seckillId);
-
-    public abstract Exposer exposerSeckillUrl(long seckillId);
-
-    public abstract SeckillExecution executionSeckill(long seckillId, long userPhone);
-
-    public abstract SeckillExecution executionSeckill(long seckillId, long userPhone, String md5);
 }
