@@ -30,6 +30,16 @@ public class SeckillExecution {
      */
     private SuccessKilled successKilled;
 
+    @Override
+    public String toString() {
+        return "SeckillExecution{" +
+                "seckillId=" + seckillId +
+                ", state=" + state +
+                ", stateInfo='" + stateInfo + '\'' +
+                ", successKilled=" + successKilled +
+                '}';
+    }
+
     /**
      * 失败状态
      * @param seckillId
