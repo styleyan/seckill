@@ -31,19 +31,6 @@ public class SeckillExecution {
     private SuccessKilled successKilled;
 
     /**
-     * 成功状态
-     * @param seckillId
-     * @param statEnum
-     * @param successKilled
-     */
-    public SeckillExecution(long seckillId, SeckillStatEnum statEnum, SuccessKilled successKilled) {
-        this.seckillId = seckillId;
-        this.state = statEnum.getState();
-        this.stateInfo = statEnum.getStateInfo();
-        this.successKilled = successKilled;
-    }
-
-    /**
      * 失败状态
      * @param seckillId
      * @param statEnum
@@ -52,6 +39,13 @@ public class SeckillExecution {
         this.seckillId = seckillId;
         this.state = statEnum.getState();
         this.stateInfo = statEnum.getStateInfo();
+    }
+
+    public SeckillExecution(long seckillId, SeckillStatEnum statEnum, SuccessKilled successKilled) {
+        this.seckillId = seckillId;
+        this.state = statEnum.getState();
+        this.stateInfo = statEnum.getStateInfo();
+        this.successKilled = successKilled;
     }
 
     public long getSeckillId() {

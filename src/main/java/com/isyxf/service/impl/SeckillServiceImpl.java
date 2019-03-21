@@ -42,6 +42,7 @@ public class SeckillServiceImpl implements SeckillService {
 
     /**
      * 输出秒杀接口地址
+     *
      * @param seckillId
      * @return
      */
@@ -69,6 +70,7 @@ public class SeckillServiceImpl implements SeckillService {
 
     /**
      * 获取md5值
+     *
      * @param seckillId
      * @return
      */
@@ -87,28 +89,32 @@ public class SeckillServiceImpl implements SeckillService {
 
         // 执行秒杀逻辑: 减库存 + 记录购买行为
         Date nowTime = new Date();
-        int updateCount = seckillDao.reduceNumber(seckillId, nowTime);
 
-        if(updateCount <= 0) {
-            // 没有更新到记录
-            throw new SeckillCloseExecption("秒杀结束");
-        } else {
-            // 记录购买行为
-            int insertCount = successKilledDao.insertSuccessKilled(seckillId, userPhone);
-            // 唯一校验: seckillId, userPhone
-
-            if(insertCount <=0) {
-                // 重复秒杀
-                throw new RepeatKillExecption("重复秒杀");
+        try {
+            int updateCount = seckillDao.reduceNumber(seckillId, nowTime);
+            if (updateCount <= 0) {
+                // 没有更新到记录
+                throw new SeckillCloseExecption("秒杀结束");
             } else {
-                // 秒杀成功
-                SuccessKilled successKilled = successKilledDao.queryByIdWithSeckill(seckillId, userPhone);
-
-                return new SeckillExecution(seckillId, 1, "秒杀成功", successKilled);
+                // 记录购买行为
+                int insertCount = successKilledDao.insertSuccessKilled(seckillId, userPhone);
+                // 唯一校验: seckillId, userPhone
+                if (insertCount <= 0) {
+                    // 重复秒杀
+                    throw new RepeatKillExecption("重复秒杀");
+                } else {
+                    // 秒杀成功
+                    SuccessKilled successKilled = successKilledDao.queryByIdWithSeckill(seckillId, userPhone);
+                    return new SeckillExecution(seckillId, SeckillStatEnum.SUCCESS, successKilled);
+                }
             }
+        } catch (SeckillCloseExecption e1) {
+            throw e1;
+        } catch (RepeatKillExecption e2) {
+            throw e2;
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new SeckillException("seckill inner error:" + e.getMessage());
         }
-
-
-        return null;
     }
 }
