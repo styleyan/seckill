@@ -22,6 +22,8 @@
             </h2>
         </div>
     </div>
+
+    <a href="/seckill/list">返回列表页</a>
 </div>
 
 <!-- 弹出层 -->
