@@ -25,7 +25,7 @@
     <select id="queryAll" resultType="Seckill">
         select seckill_id,name,number, start_time,end_time,create_time
         from seckill
-        order by create_tiem desc
+        order by create_time desc
         limit #{offset},#{limit}
     </select>
 </mapper>

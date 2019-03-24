@@ -10,7 +10,7 @@
     <!-- 1: 配置数据相关参数
         properties的属性: ${url}
     -->
-    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <context:property-placeholder location="classpath:jdbc.properties" system-properties-mode="FALLBACK"/>
 
     <!-- 2:数据库连接池，TODO: 属性id是用于方便其他配置引用 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
