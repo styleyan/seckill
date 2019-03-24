@@ -17,12 +17,12 @@
           sk.user_phone,
           sk.create_time,
           sk.state,
-          s.seckill_id as "seckill.seckill_id",
-          s.name as "seckill.name",
-          s.number as "seckill.number",
-          s.start_time as "seckill.start_time",
-          s.end_time as "seckill.end_time",
-          s.create_time as "seckill.create_time"
+          s.seckill_id "seckill.seckill_id",
+          s.name "seckill.name",
+          s.number "seckill.number",
+          s.start_time "seckill.start_time",
+          s.end_time "seckill.end_time",
+          s.create_time "seckill.create_time"
         from success_killed sk
         inner join seckill s on sk.seckill_id = s.seckill_id
         where sk.seckill_id=#{seckillId} and sk.user_phone=#{userPhone}
