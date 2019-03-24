@@ -15,7 +15,9 @@
         </div>
         <div class="pannel-body">
             <h2 class="text-danger">
+                <!-- 显示time 图标 -->
                 <span class="glyphicon glyphicon-time"></span>
+                <!-- 展示倒计时 -->
                 <span class="glyphicon" id="seckill-box"></span>
             </h2>
         </div>
