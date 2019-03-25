@@ -4,6 +4,7 @@ package com.isyxf.enums;
  * 使用枚举表述常量数据字段
  */
 public enum SeckillStatEnum {
+    // 统一状态管理成功/失败状态
     SUCCESS(1, "秒杀成功"),
     END(0, "秒杀结束"),
     REPEAT_KILL(-1, "重复秒杀"),

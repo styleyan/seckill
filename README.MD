@@ -23,3 +23,19 @@ c3p0: 0.9.1.2
 
 ##### 数据库连接失败, 提示 "nested exception is java.sql.SQLException: An attempt by a client to checkout a Connection has timed out."
 解决方法: 配置c3p0的时候，有一个配置属性是checkoutTimeout，把这个配置属性去掉就正常了
+
+
+### 扩展知识
+
+- SOA
+- 微服务
+- 服务网格
+
+### 其他知识
+
+- Dubbo
+- Mybatis
+- kafka
+- ZooKeeper
+- redis
+
