@@ -64,6 +64,7 @@ public class SeckillServiceImpl implements SeckillService {
         Seckill seckill = redisDao.getSeckill(seckillId);
 
         if (seckill == null) {
+            logger.info("redis is empty, go Mysql get seckill");
             // 2: redis没获取到在访问数据库
             seckill = seckillDao.queryById(seckillId);
 
@@ -72,8 +73,11 @@ public class SeckillServiceImpl implements SeckillService {
                 return new Exposer(false, seckillId);
             } else {
                 // 3: 数据库中存在，则放入redis中
+                logger.info("add redis key");
                 redisDao.putSeckill(seckill);
             }
+        }else {
+            logger.info("from redis, not open mySql");
         }
 
         Date startTime = seckill.getStartTime();
