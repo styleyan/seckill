@@ -51,4 +51,10 @@
         <!-- 给出需要扫描Dao接口包 -->
         <property name="basePackage" value="com.isyxf.dao"></property>
     </bean>
+
+    <!-- RedisDao -->
+    <bean id="redisDao" class="com.isyxf.dao.cache.RedisDao">
+        <constructor-arg index="0" value="localhost"/>
+        <constructor-arg index="1" value="6379"/>
+    </bean>
 </beans>

@@ -2,6 +2,7 @@ package com.isyxf.service.impl;
 
 import com.isyxf.dao.SeckillDao;
 import com.isyxf.dao.SuccessKilledDao;
+import com.isyxf.dao.cache.RedisDao;
 import com.isyxf.dto.Exposer;
 import com.isyxf.dto.SeckillExecution;
 import com.isyxf.entity.Seckill;
@@ -33,6 +34,8 @@ public class SeckillServiceImpl implements SeckillService {
     @Autowired
     private SuccessKilledDao successKilledDao;
 
+    @Autowired
+    private RedisDao redisDao;
     /**
      * 混淆
      */
@@ -56,10 +59,21 @@ public class SeckillServiceImpl implements SeckillService {
      */
     @Override
     public Exposer exportSeckillUrl(long seckillId) {
-        Seckill seckill = seckillDao.queryById(seckillId);
+        // 可优化点: 使用redis缓存优化，超时维护
+        // 1. 先从 redis 获取
+        Seckill seckill = redisDao.getSeckill(seckillId);
 
         if (seckill == null) {
-            return new Exposer(false, seckillId);
+            // 2: redis没获取到在访问数据库
+            seckill = seckillDao.queryById(seckillId);
+
+            // 数据库中也没取到直接返回错误
+            if (seckill == null) {
+                return new Exposer(false, seckillId);
+            } else {
+                // 3: 数据库中存在，则放入redis中
+                redisDao.putSeckill(seckill);
+            }
         }
 
         Date startTime = seckill.getStartTime();

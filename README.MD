@@ -38,4 +38,5 @@ c3p0: 0.9.1.2
 - kafka
 - ZooKeeper
 - redis
+- [序列化](https://github.com/eishay/jvm-serializers/wiki)
 
