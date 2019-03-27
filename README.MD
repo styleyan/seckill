@@ -39,4 +39,5 @@ c3p0: 0.9.1.2
 - ZooKeeper
 - redis
 - [序列化](https://github.com/eishay/jvm-serializers/wiki)
+- tddl 分库分表
 
