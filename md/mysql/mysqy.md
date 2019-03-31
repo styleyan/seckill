@@ -1,9 +1,5 @@
 # mysql相关语句
 
-#### 判断语句
-- if not exists(如果不存在)
-
-
 #### 数据库语句
 1. 创建数据库
 > CREATE DATABASE IF NOT EXISTS [数据名] CHARACTER SET [编码];
@@ -33,5 +29,24 @@
 > select DATABASE();
 
 3. 创建表
-UNSIGNED: 无负数, 最小0开始
+- IF NOT EXISTS(如果不存在)
+- UNSIGNED: 无负数, 最小0开始
+- NULL(字段值可以为空)
+- NOT NULL(字段值禁止为空)
+- AUTO_INCREMENT(自动编号, 会合 PRIMARY KEY:主键结合使用)
 > CREATE TABLE IF NOT EXISTS [表名] (name CHAR, age TINYINT UNSIGNED, [列信息...], ...);
+> CREATE TABLE IF NOT EXISTS [表名] (username VARCHAR(20) NOT NULL, age TINYINT UNSIGNED NULL);
+
+4. 查看数据表是否存在
+> SHOW TABLES; [当前数据库表]
+> SHOW TABLES FROM [其他数据库名]; [其他数据库表]
+
+5. 查看数据表结构
+> SHOW COLUMNS FROM [表名];
+
+6. 向表中添加数据
+> INSERT [表名] VALUES ("列1", "列2", "列2", ...);
+> INSERT [表名] (col_name,...) VALUES(VAL,...);
+
+7. 表记录查找
+> SELECT age FROM [表名];
